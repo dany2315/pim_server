@@ -46,7 +46,9 @@ app.use((req, res, next) => {
   next();
 });
 app.use("/api", router);
-
+app.use("/",(req,res)=>{
+  res.send("welcome to the home page")
+})
 
 //http://localhost:5000/auth  autentification
 app.post("/auth", async (req, res) => {
