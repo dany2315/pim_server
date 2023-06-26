@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start:dev": "env-cmd -f .env.development nodemon server.js",
-    "start:prod": "env-cmd -f .env.production nodemon server.js"
+    "start:prod": "env-cmd -f .env.production node server.js"
   },
   "keywords": [],
   "author": "David serfaty",
