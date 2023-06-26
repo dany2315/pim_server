@@ -30,8 +30,14 @@ export const getPlein = async (req,res)  =>{
 export const getFournisseurs = async (req, res) => {
   try {
     const fournisseurs = await ListFourn.find({ fieldNames: { $ne: [] } });
-    res.status(200).send(fournisseurs);
+    if (fournisseurs) {
+      res.status(200).send(fournisseurs);
     console.log("fourn",fournisseurs);
+    }else{
+      res.status(200).send("vide");
+    }
+  
+    
   } catch (err) {
     console.error("Erreur lors de la récupération des fournisseurs :", err);
     res.status(500).send({
