@@ -35,7 +35,7 @@ const app = express();
 //use body parser pour pouvoir augmenter la limite de transfere
 app.use(bodyParser.json({ limit: '10mb' }));
 //use cors
-app.use(cors());
+app.use(cors({origin: 'https://service-pim.jcloud-ver-jpe.ik-server.com/'}));
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
