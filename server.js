@@ -8,11 +8,7 @@ import User from "./models/modelUser.js";
 import bodyParser from 'body-parser'
 
 
-if (process.env.NODE_ENV === 'development') {
-  dotenv.config({ path: '.env.development' });
-} else if (process.env.NODE_ENV === 'production') {
-  dotenv.config({ path: '.env.production' });
-}
+
 
 
 //connection mongoDB localhost
