@@ -47,6 +47,7 @@ app.use((req, res, next) => {
 });
 app.use("/api", router);
 app.use("/",(req,res)=>{
+  console.log("welcome to the home page");
   res.send("welcome to the home page")
 })
 
