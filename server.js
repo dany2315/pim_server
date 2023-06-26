@@ -32,6 +32,7 @@ mongoose
 //server express URL: http://localhost:5000/api
 const app = express();
 
+app.set('trust proxy', true);
 //use body parser pour pouvoir augmenter la limite de transfere
 app.use(bodyParser.json({ limit: '10mb' }));
 //use cors
