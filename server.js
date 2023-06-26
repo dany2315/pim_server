@@ -1,5 +1,5 @@
 import express from "express";
-import dotenv from 'dotenv';
+import 'dotenv/config'
 import cors from "cors";
 import mongoose from "mongoose";
 import morgan from "morgan";
@@ -11,7 +11,7 @@ import bodyParser from 'body-parser'
 if (process.env.NODE_ENV === 'development') {
   dotenv.config({ path: '.env.development' });
 } else if (process.env.NODE_ENV === 'production') {
-  dotenv.config({ path: '.env' });
+  dotenv.config({ path: '.env.production' });
 }
 
 
