@@ -7,6 +7,14 @@ import router from "./routes/index.js";
 import User from "./models/modelUser.js";
 import bodyParser from 'body-parser'
 
+
+if (process.env.NODE_ENV === 'development') {
+  dotenv.config({ path: '.env.development' });
+} else if (process.env.NODE_ENV === 'production') {
+  dotenv.config({ path: '.env' });
+}
+
+
 //connection mongoDB localhost
 const ENV = process.env.ENV
 const DATABASE_NAME = process.env.DATABASE_NAME;
