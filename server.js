@@ -1,5 +1,5 @@
 import express from "express";
-import 'dotenv/config'
+import dotenv from 'dotenv';
 import cors from "cors";
 import mongoose from "mongoose";
 import morgan from "morgan";
