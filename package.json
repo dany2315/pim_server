@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start:dev": "env-cmd -f .env.development nodemon server.js",
-    "start": "env-cmd -f .env.production node server.js"
+    "start": "env-cmd -f .env.production node server.js",
+    "build":"npm install && npm run build"
   },
   "keywords": [],
   "author": "David serfaty",
