@@ -16,6 +16,7 @@ const ENV = process.env.ENV
 const DATABASE_NAME = process.env.DATABASE_NAME;
 const URL_DATABASE = process.env.URL_DATABASE
 const PORT = process.env.PORT 
+
 console.log(ENV);
 
 
@@ -40,7 +41,7 @@ app.set('trust proxy', true);
 //use body parser pour pouvoir augmenter la limite de transfere
 app.use(bodyParser.json({ limit: '10mb' }));
 //use cors
-app.use(cors({origin: 'https://service-pim.jcloud-ver-jpe.ik-server.com/'}));
+app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
