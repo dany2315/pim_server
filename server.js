@@ -20,7 +20,7 @@ const PORT = process.env.PORT
 console.log(ENV);
 
 
-const CONNECTION_URL = `${URL_DATABASE}${DATABASE_NAME}`;
+const CONNECTION_URL = `${URL_DATABASE}`;
 
 mongoose.set("strictQuery", false);
 mongoose
