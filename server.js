@@ -13,7 +13,6 @@ import bodyParser from 'body-parser'
 
 //connection mongoDB localhost
 const ENV = process.env.ENV
-const DATABASE_NAME = process.env.DATABASE_NAME;
 const URL_DATABASE = process.env.URL_DATABASE
 const PORT = process.env.PORT 
 
