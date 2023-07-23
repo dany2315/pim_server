@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import ListFourn from "../models/modelListFourn.js";
+import {ListFourn} from "../models/modelListFourn.js";
 
 export const getProduits = async (req,res) =>{
   const ref = req.params.reference; 

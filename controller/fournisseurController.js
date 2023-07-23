@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import createDynamicModel from "../models/modelFournisseur.js";
-import ListFourn from "../models/modelListFourn.js";
+import {ListFourn} from "../models/modelListFourn.js";
 
 
 
