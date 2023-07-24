@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import createDynamicModel from "../models/modelFournisseur.js";
 import {ListFourn} from "../models/modelListFourn.js";
-
+import Categorie from '../models/modelCategorie.js'
 
 
 export const getPlein = async (req,res)  =>{
@@ -47,20 +47,7 @@ export const getFournisseurs = async (req, res) => {
   }
 };
 
-export const reSaveFournisseur = async (req, res) => {
-  try {
-    const {data,collectionName} = req.body
-    const maCollection = mongoose.connection.collection(collectionName);
-    const result = await maCollection.insertMany(data);
 
-res.status(200).send(result)
-  } catch (error) {
-    console.error("Erreur lors de la resauvgarde du fournisseur avec nouveau fichier :", error);
-    res.status(500).send({
-      message: "Erreur lors de la resauvgarde du fournisseur avec nouveau fichier :",
-    });
-  }
-};
 
 export const createFournisseur = async (req, res) => {
   const { collectionName, data } = req.body;
@@ -96,44 +83,15 @@ console.log("collectionName",collectionName);
   }
 };
 
-
-export   const createListFourn = async (req, res) => {
-  const { collectionName, fieldNames } = req.body;
-  try {
-    const fourn = {
-      collectionName: collectionName,
-      fieldNames: fieldNames,
-    };
-    const listFourn = new ListFourn(fourn);
-
-    await listFourn.save();
-    console.log("le resume du fournisseur a ete cree avec succes :", fourn);
-    res.sendStatus(200);
-  } catch (error) {
-    console.error(
-      "Erreur lors de la sauvegarde du fournisseur dans la listeCollection :",
-      error
-    );
-    res.status(500).send({
-      message: "Erreur lors de la sauvegarde du fournisseur dans la listeCollection :",
-    });
-  }
-};
-export const deleteContenu = async (req, res) => {
-  try {
-    const {collectionName} = req.body
-    const maCollection = mongoose.connection.collection(collectionName);
-    const result = await maCollection.deleteMany({});
-    console.log("result delete :",result);
-res.status(200).send(result)
-  } catch (error) {
-    console.error("Erreur lors de la resauvgarde du fournisseur avec nouveau fichier :", error);
-    res.status(500).send({
-      message: "Erreur lors de la resauvgarde du fournisseur avec nouveau fichier :",
-    });
-  }
-};
+export const getCategories = async(req , res) => {
+try {
+  const categories = await Categorie.find({})
+  res.status(200).send(categories)
+} catch (error) {
+  res.status(500).send(error)
+}
+}
 
 
 
-export default { getFournisseurs ,getPlein ,createFournisseur, createListFourn ,deleteContenu };
+export default { getFournisseurs ,getPlein ,createFournisseur , getCategories};
