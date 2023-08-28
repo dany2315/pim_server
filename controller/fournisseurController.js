@@ -4,6 +4,7 @@ import {ListFourn} from "../models/modelListFourn.js";
 import Categorie from '../models/modelCategorie.js'
 
 
+
 export const getPlein = async (req,res)  =>{
 
   const collectionName = req.params.id;
@@ -28,15 +29,17 @@ export const getPlein = async (req,res)  =>{
 };
  
 export const getFournisseurs = async (req, res) => {
+  const { id } = req.body;
   try {
-    const fournisseurs = await ListFourn.find({ fieldNames: { $ne: [] } });
+    const fournisseurs = await ListFourn.find({categorie:id})
+    console.log(fournisseurs)
     if (fournisseurs) {
-      res.status(200).send(fournisseurs);
+      res.status(200).send(fournisseurs); 
     console.log("fourn",fournisseurs);
     }else{
       res.status(200).send("vide");
-    }
-  
+    }  
+     
     
   } catch (err) {
     console.error("Erreur lors de la récupération des fournisseurs :", err);
@@ -47,11 +50,11 @@ export const getFournisseurs = async (req, res) => {
   }
 };
 
-
+ 
 
 export const createFournisseur = async (req, res) => {
   const { collectionName, data } = req.body;
-
+console.log(req);
   //fonction pour cree le resume du fournisseur dans la collection listecollections
 console.log("collectionName",collectionName);
   //recuperer les champs pour cree le fournisseur dans la Base de donne

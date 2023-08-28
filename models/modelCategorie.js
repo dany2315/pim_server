@@ -6,6 +6,14 @@ const categorieSchema = new mongoose.Schema({
       type: String,
       required: true,
       unique: true,
+    },
+    text: {
+      type: String,
+      required:true,
+    },
+    radius: {
+      type: String,
+      required:true,
     }
   });
 

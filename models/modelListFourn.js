@@ -4,7 +4,7 @@ import mongoose from "mongoose";
     const listShema = new mongoose.Schema({
           collectionName: String,
           fieldNames: [String],
-          categorie: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Categori' }],
+          categorie: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Categorie' }],
         },
       );
 
@@ -26,6 +26,10 @@ import mongoose from "mongoose";
         filName:{
           type:String,
           required:true,
+        },
+        timeMaj:{
+          type:Date,
+          default:Date.now
         }
       });
       
@@ -36,6 +40,10 @@ import mongoose from "mongoose";
           type: String,
           required: true,
         },
+        timeMaj:{
+          type:Date,
+          default:Date.now
+        }
       });
       
       // Modèle de fournisseur
@@ -45,6 +53,6 @@ import mongoose from "mongoose";
       // Modèle de fournisseur pour la catégorie 'url'
       const UrlListFourn = ListFourn.discriminator('url', UrlListFournSchema);
       
-      
+       
 
 export {ListFourn ,FtpListFourn , UrlListFourn }
