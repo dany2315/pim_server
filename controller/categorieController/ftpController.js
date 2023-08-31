@@ -37,6 +37,12 @@ export const importFileFtp = async (req, res) => {
   }
 };
 
+export const newFourn = async(req,res)=>{
+try {
+  
+} catch (error) {
+  
+}
+}
 
-
-export default { importFileFtp };
+export default { importFileFtp , newFourn };
