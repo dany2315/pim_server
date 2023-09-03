@@ -44,7 +44,9 @@ export   const createListFournFile = async (req, res) => {
       const {data,collectionName} = req.body
       const maCollection = mongoose.connection.collection(collectionName);
       const result = await maCollection.insertMany(data);
-  
+      
+    
+      
   res.status(200).send(result)
     } catch (error) {
       console.error("Erreur lors de la resauvgarde du fournisseur avec nouveau fichier :", error);

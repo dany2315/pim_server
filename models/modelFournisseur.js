@@ -9,7 +9,7 @@ const createDynamicModel = (collectionName, keys) => {
       };
     });
   
-    const dynamicSchema = new Schema(schemaFields);
+    const dynamicSchema = new Schema(schemaFields,{ timestamps: true });
     const dynamicModel = mongoose.model(collectionName, dynamicSchema);
   
     return dynamicModel;

@@ -12,7 +12,6 @@ export const getPlein = async (req,res)  =>{
   try {
     const maCollection = mongoose.connection.collection(collectionName);
     const objet = await maCollection.findOne({})
-  
     if (objet) {
       res.status(200).send(true)
     }else{
@@ -54,7 +53,6 @@ export const getFournisseurs = async (req, res) => {
 
 export const createFournisseur = async (req, res) => {
   const { collectionName, data } = req.body;
-console.log(req);
   //fonction pour cree le resume du fournisseur dans la collection listecollections
 console.log("collectionName",collectionName);
   //recuperer les champs pour cree le fournisseur dans la Base de donne

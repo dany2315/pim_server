@@ -11,6 +11,9 @@ import mongoose from "mongoose";
     
       const FtpListFournSchema = new mongoose.Schema({
         // Propriétés spécifiques à la catégorie 'ftp'
+        collectionName: String,
+        fieldNames: [String],
+        categorie: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Categorie' }],
         host:{
           type:String,
           required:true,
@@ -31,11 +34,15 @@ import mongoose from "mongoose";
           type:Date,
           default:Date.now
         }
+        
       });
       
       // Schéma spécifique pour la catégorie 'url'
       const UrlListFournSchema = new mongoose.Schema({
         // Propriétés spécifiques à la catégorie 'url'
+        collectionName: String,
+        fieldNames: [String],
+        categorie: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Categorie' }],
         url: {
           type: String,
           required: true,
