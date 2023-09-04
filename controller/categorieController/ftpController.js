@@ -92,6 +92,7 @@ export const getTimeMaj = async (req,res)  =>{
   console.log(collectionName);
   try {
     const fourn = await ListFourn.findOne({collectionName:collectionName})
+    console.log(fourn.timeMaj);
     res.status(200).send(fourn.timeMaj)
   } catch (error) {
     console.error("Erreur lors de la récupération de plein :", error);
