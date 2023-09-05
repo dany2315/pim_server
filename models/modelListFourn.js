@@ -2,16 +2,64 @@ import mongoose from "mongoose";
 
 
     const listShema = new mongoose.Schema({
-        
           collectionName: String,
           fieldNames: [String],
+          categorie: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Categorie' }],
         },
       );
 
     
+      const FtpListFournSchema = new mongoose.Schema({
+        // Propriétés spécifiques à la catégorie 'ftp'
+        collectionName: String,
+        fieldNames: [String],
+        categorie: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Categorie' }],
+        host:{
+          type:String,
+          required:true,
+        },
+        username: {
+          type: String,
+          required: true,
+        },
+        password: {
+          type: String,
+          required: true,
+        },
+        filName:{
+          type:String,
+          required:true,
+        },
+        timeMaj:{
+          type:Date,
+          default:Date.now
+        }
+        
+      });
+      
+      // Schéma spécifique pour la catégorie 'url'
+      const UrlListFournSchema = new mongoose.Schema({
+        // Propriétés spécifiques à la catégorie 'url'
+        collectionName: String,
+        fieldNames: [String],
+        categorie: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Categorie' }],
+        url: {
+          type: String,
+          required: true,
+        },
+        timeMaj:{
+          type:Date,
+          default:Date.now
+        }
+      });
+      
+      // Modèle de fournisseur
+      const ListFourn = mongoose.model('listeCollection',listShema)
+      // Modèle de fournisseur pour la catégorie 'ftp'
+      const FtpListFourn = ListFourn.discriminator('ftp', FtpListFournSchema);
+      // Modèle de fournisseur pour la catégorie 'url'
+      const UrlListFourn = ListFourn.discriminator('url', UrlListFournSchema);
+      
+       
 
-
-const ListFourn = mongoose.model('listeCollection',listShema)
-
-
-export default ListFourn
+export {ListFourn ,FtpListFourn , UrlListFourn }

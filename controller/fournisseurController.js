@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import createDynamicModel from "../models/modelFournisseur.js";
-import ListFourn from "../models/modelListFourn.js";
+import {ListFourn} from "../models/modelListFourn.js";
+import Categorie from '../models/modelCategorie.js'
 
 
 
@@ -11,7 +12,6 @@ export const getPlein = async (req,res)  =>{
   try {
     const maCollection = mongoose.connection.collection(collectionName);
     const objet = await maCollection.findOne({})
-  
     if (objet) {
       res.status(200).send(true)
     }else{
@@ -28,15 +28,17 @@ export const getPlein = async (req,res)  =>{
 };
  
 export const getFournisseurs = async (req, res) => {
+  const { id } = req.body;
   try {
-    const fournisseurs = await ListFourn.find({ fieldNames: { $ne: [] } });
+    const fournisseurs = await ListFourn.find({categorie:id})
+    console.log(fournisseurs)
     if (fournisseurs) {
-      res.status(200).send(fournisseurs);
+      res.status(200).send(fournisseurs); 
     console.log("fourn",fournisseurs);
     }else{
       res.status(200).send("vide");
-    }
-  
+    }  
+     
     
   } catch (err) {
     console.error("Erreur lors de la récupération des fournisseurs :", err);
@@ -47,24 +49,10 @@ export const getFournisseurs = async (req, res) => {
   }
 };
 
-export const reSaveFournisseur = async (req, res) => {
-  try {
-    const {data,collectionName} = req.body
-    const maCollection = mongoose.connection.collection(collectionName);
-    const result = await maCollection.insertMany(data);
-
-res.status(200).send(result)
-  } catch (error) {
-    console.error("Erreur lors de la resauvgarde du fournisseur avec nouveau fichier :", error);
-    res.status(500).send({
-      message: "Erreur lors de la resauvgarde du fournisseur avec nouveau fichier :",
-    });
-  }
-};
+ 
 
 export const createFournisseur = async (req, res) => {
   const { collectionName, data } = req.body;
-
   //fonction pour cree le resume du fournisseur dans la collection listecollections
 console.log("collectionName",collectionName);
   //recuperer les champs pour cree le fournisseur dans la Base de donne
@@ -96,44 +84,15 @@ console.log("collectionName",collectionName);
   }
 };
 
-
-export   const createListFourn = async (req, res) => {
-  const { collectionName, fieldNames } = req.body;
-  try {
-    const fourn = {
-      collectionName: collectionName,
-      fieldNames: fieldNames,
-    };
-    const listFourn = new ListFourn(fourn);
-
-    await listFourn.save();
-    console.log("le resume du fournisseur a ete cree avec succes :", fourn);
-    res.sendStatus(200);
-  } catch (error) {
-    console.error(
-      "Erreur lors de la sauvegarde du fournisseur dans la listeCollection :",
-      error
-    );
-    res.status(500).send({
-      message: "Erreur lors de la sauvegarde du fournisseur dans la listeCollection :",
-    });
-  }
-};
-export const deleteContenu = async (req, res) => {
-  try {
-    const {collectionName} = req.body
-    const maCollection = mongoose.connection.collection(collectionName);
-    const result = await maCollection.deleteMany({});
-    console.log("result delete :",result);
-res.status(200).send(result)
-  } catch (error) {
-    console.error("Erreur lors de la resauvgarde du fournisseur avec nouveau fichier :", error);
-    res.status(500).send({
-      message: "Erreur lors de la resauvgarde du fournisseur avec nouveau fichier :",
-    });
-  }
-};
+export const getCategories = async(req , res) => {
+try {
+  const categories = await Categorie.find({})
+  res.status(200).send(categories)
+} catch (error) {
+  res.status(500).send(error)
+}
+}
 
 
 
-export default { getFournisseurs ,getPlein ,createFournisseur, createListFourn ,deleteContenu };
+export default { getFournisseurs ,getPlein ,createFournisseur , getCategories};

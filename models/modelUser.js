@@ -1,46 +1,52 @@
-import mongoose from 'mongoose';
-import bcrypt from 'bcrypt'
+import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
 const { Schema } = mongoose;
 const userSchema = new Schema({
-    identifiant:{
-        type:String,
-        required: true,
-    },
-    password:{
-        type:String,
-        required: true,
-    }
+  nom: {
+    type: String,
+    required: true,
+  },
+  prenom: {
+    type: String,
+    required: true,
+  },
+  identifiant: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
 });
 
-//middelware si fonftion .save()est appeler dans une instance du model User 
-userSchema.pre('save', async function(next) {
-    if (!this.isModified('password')) {
-      return next();
-    }
-  
-    try {
-      const hashedPassword = await bcrypt.hash(this.password, 10);
-      this.password = hashedPassword;
-      next();
-    } catch (error) {
-      return next(error);
-    }
-  });
+//middelware si fonction .save()est appeler dans une instance du model User
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    return next();
+  }
 
-//la fonction de l'instance User pour comparer le mot de passe 
-//recue avec le mot de passe hashe enregistrer dans la base de donner 
+  try {
+    const hashedPassword = await bcrypt.hash(this.password, 10);
+    this.password = hashedPassword;
+    next();
+  } catch (error) {
+    return next(error);
+  }
+});
+
+//la fonction de l'instance User pour comparer le mot de passe
+//recue avec le mot de passe hashe enregistrer dans la base de donner
 //ex: user.comparepassword(password)
-userSchema.methods.comparePassword = async function(password) {
-    try {
-      return await bcrypt.compare(password, this.password);
-    } catch (error) {
-      throw new Error(error);
-    }
-  };
+userSchema.methods.comparePassword = async function (password) {
+  try {
+    return await bcrypt.compare(password, this.password);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
 
+const User = mongoose.model("User", userSchema);
 
-
-const User = mongoose.model('User', userSchema);
-
-export default User
+export default User;
