@@ -29,11 +29,13 @@ export const getPlein = async (req,res)  =>{
  
 export const getFournisseurs = async (req, res) => {
   const { id } = req.body;
+  
   try {
     const fournisseurs = await ListFourn.find({categorie:id})
     console.log(fournisseurs)
     if (fournisseurs) {
       res.status(200).send(fournisseurs); 
+      
     console.log("fourn",fournisseurs);
     }else{
       res.status(200).send("vide");

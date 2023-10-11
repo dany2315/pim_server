@@ -1,10 +1,11 @@
 import express  from "express";
-import { login } from "../controller/authController.js"
+import { login , register} from "../controller/authController.js"
 const router = express.Router();
 
 //http://localhost:5000/api/auth
 
 router.post('/',login);
+router.post('/register',register)
 
 
 

@@ -4,7 +4,6 @@ import cors from "cors";
 import mongoose from "mongoose";
 import morgan from "morgan";
 import router from "./routes/index.js";
-import User from "./models/modelUser.js";
 import bodyParser from 'body-parser'
 
 
@@ -15,6 +14,7 @@ import bodyParser from 'body-parser'
 const ENV = process.env.ENV
 const URL_DATABASE = process.env.URL_DATABASE
 const PORT = process.env.PORT 
+const PRIVATE_KEY = process.env.PRIVATE_KEY
 
 console.log(ENV);
 
@@ -57,27 +57,34 @@ app.use("/",(req,res)=>{
   res.send("welcome to the home page")
 })
 
-//http://localhost:5000/auth  autentification
-app.post("/auth", async (req, res) => {
-  try {
-    const { identifiant, password } = req.body;
-    const exist = await User.findOne({ identifiant: identifiant });
-    if (exist) {
-      return console.log("utilisateur existant"),res.status(407).send("utilisateur existant");
-    }else{
-      const newUser = new User({
-        identifiant: identifiant,
-        password: password,
-      })
-        .save()
-        .then(() => res.status(200).send("user ajouter"))
-        .catch((error)=>res.status(401).send(error));
+//middlware pour verif token
+function verifyToken(req, res, next) {
+  const token = req.headers['authorization'];
 
-    
-      
+  if (!token) {
+    return res.status(401).json({ message: 'Token manquant. Authentifiez-vous.' });
+  }
+  jwt.verify(token, PRIVATE_KEY, (err, decoded) => {
+    if (err) {
+      return res.status(403).json({ message: 'Token invalide.' });
     }
-  } catch (error) {}
-});
+    console.log("connecte");
+    req.user = decoded;
+    next();
+  });
+}  
+
+// Middleware d'exclusion pour les routes register et login
+function excludeRoutes(req, res, next) {
+  if (req.path === '/register' || req.path === '/login') {
+    return next(); // Les routes register et login ne nécessitent pas de JWT
+  }
+  verifyToken(req, res, next); // Appliquer le middleware de vérification JWT pour toutes les autres routes
+}
+
+// Appliquer le middleware d'exclusion à toutes les routes
+app.use(excludeRoutes);
+
 
 
 
